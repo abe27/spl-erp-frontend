@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useSession, signIn, signOut } from "next-auth/react"
 import Link from "next/link";
 
 const navigation = [
@@ -11,11 +12,16 @@ const navigation = [
   { name: "โหลดเข้าตู้", href: "/loading", isAdmin: false },
   { name: "คลังสินค้า", href: "/stock", isAdmin: false },
   { name: "รายงาน", href: "/logs", isAdmin: false },
-  { name: "จัดการระบบ", href: "/administrator", isAdmin: true },
 ];
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { data: session } = useSession()
+
+  useEffect(() => {
+    console.dir(session)
+  }, [session])
+
   return (
     <>
       <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
@@ -83,11 +89,18 @@ const NavBar = () => {
               ))}
             </div>
             <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
+              {session ? (
+                  <Link href="/logout">
+                    <span className="font-semibold text-gray-900 hover:text-gray-900">
+                      {session.user.fullName}
+                    </span>
+                  </Link>
+              ):(
               <Link href="/auth">
                 <span className="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                   เข้าสู่ระบบ
                 </span>
-              </Link>
+              </Link>)}
             </div>
           </nav>
           <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>

@@ -2,7 +2,7 @@
 import { Header } from "@/components";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 

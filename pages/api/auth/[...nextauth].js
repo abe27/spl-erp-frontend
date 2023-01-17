@@ -76,14 +76,14 @@ export const authOptions = {
       session.user.isAdmin = token.isAdmin;
       session.user.accessToken = token.accessToken;
       session.user.fullName = token.fullName;
-      session.user.Area = token.Area.title;
-      session.user.Whs = token.Whs.title;
-      session.user.WhsDescription = token.Whs.description;
-      session.user.Factory = token.Factory.title;
-      session.Position = token.Position.title;
-      session.Department = token.Department.title;
-      session.Section = token.Section.title;
-      session.PrefixName = token.PrefixName.title;
+      // session.user.Area = token.Area.title;
+      // session.user.Whs = token.Whs.title;
+      // session.user.WhsDescription = token.Whs.description;
+      // session.user.Factory = token.Factory.title;
+      // session.Position = token.Position.title;
+      // session.Department = token.Department.title;
+      // session.Section = token.Section.title;
+      // session.PrefixName = token.PrefixName.title;
       return session;
     },
   },
