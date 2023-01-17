@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
 const navigation = [
@@ -16,11 +16,11 @@ const navigation = [
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   useEffect(() => {
-    console.dir(session)
-  }, [session])
+    console.dir(session);
+  }, [session]);
 
   return (
     <>
@@ -89,18 +89,19 @@ const NavBar = () => {
               ))}
             </div>
             <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
-              {session ? (
-                  <Link href="/logout">
-                    <span className="font-semibold text-gray-900 hover:text-gray-900">
-                      {session.user.fullName}
-                    </span>
-                  </Link>
-              ):(
-              <Link href="/auth">
-                <span className="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                  เข้าสู่ระบบ
-                </span>
-              </Link>)}
+              {session?.user ? (
+                <Link href="/logout">
+                  <span className="font-semibold text-gray-900 hover:text-gray-900">
+                    {session.user.fullName | session.user.userName}
+                  </span>
+                </Link>
+              ) : (
+                <Link href="/auth">
+                  <span className="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                    เข้าสู่ระบบ
+                  </span>
+                </Link>
+              )}
             </div>
           </nav>
           <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -144,11 +145,19 @@ const NavBar = () => {
                     ))}
                   </div>
                   <div className="py-6">
-                    <Link href="/auth">
-                      <span className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10">
-                        เข้าสู่ระบบ
-                      </span>
-                    </Link>
+                    {session?.user ? (
+                      <Link href="/logout">
+                        <span className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10">
+                        {session.user.fullName | session.user.userName}
+                        </span>
+                      </Link>
+                    ) : (
+                      <Link href="/auth">
+                        <span className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10">
+                          เข้าสู่ระบบ
+                        </span>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
