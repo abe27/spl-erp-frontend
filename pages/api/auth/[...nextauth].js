@@ -49,18 +49,19 @@ export const authOptions = {
         return {
           ...token,
           userId: user.data.user_id.id,
-          userName: user.data.user_id.user_name,
+          userName: user.data.user_id.username,
           email: user.data.user_id.email,
-          imgUrl: user.data.profile.avatar_url,
+          imgUrl: user.data.user_id.avatar_url,
           isAdmin: user.data.is_admin,
           accessToken: `${user.data.jwt_type} ${user.data.jwt_token}`,
-          Area: user.data.profile.area,
-          Whs: user.data.profile.whs,
-          Factory: user.data.profile.factory,
-          Position: user.data.profile.position,
-          Department: user.data.profile.department,
-          PrefixName: user.data.profile.prefix_name,
-          fullName: `${user.data.profile.first_name} ${user.data.profile.last_name}`,
+          Area: user.data.user_id.area,
+          Whs: user.data.user_id.whs,
+          Factory: user.data.user_id.factory,
+          Position: user.data.user_id.position,
+          Department: user.data.user_id.department,
+          Section: user.data.user_id.section,
+          PrefixName: user.data.user_id.prefix_name,
+          fullName: `${user.data.user_id.firstname} ${user.data.user_id.lastname}`,
         };
       }
 
@@ -81,6 +82,7 @@ export const authOptions = {
       session.user.Factory = token.Factory.title;
       session.Position = token.Position.title;
       session.Department = token.Department.title;
+      session.Section = token.Section.title;
       session.PrefixName = token.PrefixName.title;
       return session;
     },

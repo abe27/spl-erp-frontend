@@ -5,13 +5,13 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const navigation = [
-  { name: "หน้าแรก", href: "/", auth: false },
-  { name: "รับสินค้า", href: "/receive", auth: false },
-  { name: "จัดเตรียม", href: "/prepare", auth: false },
-  { name: "โหลดเข้าตู้", href: "/loading", auth: false },
-  { name: "คลังสินค้า", href: "/stock", auth: false },
-  { name: "รายงาน", href: "/logs", auth: false },
-  { name: "จัดการระบบ", href: "/administrator", auth: true },
+  { name: "หน้าแรก", href: "/", isAdmin: false },
+  { name: "รับสินค้า", href: "/receive", isAdmin: false },
+  { name: "จัดเตรียม", href: "/prepare", isAdmin: false },
+  { name: "โหลดเข้าตู้", href: "/loading", isAdmin: false },
+  { name: "คลังสินค้า", href: "/stock", isAdmin: false },
+  { name: "รายงาน", href: "/logs", isAdmin: false },
+  { name: "จัดการระบบ", href: "/administrator", isAdmin: true },
 ];
 
 const NavBar = () => {
