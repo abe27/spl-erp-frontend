@@ -2,27 +2,50 @@
 import { Header } from "@/components";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+
+
 const AuthPage = () => {
+  const toast = useToast()
+  const router = useRouter()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const frm = new FormData(e.target)
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    const data = new FormData(e.target);
+    data.set("username", data.get("username"));
+    data.set("password", data.get("password"));
+    // console.dir(`USERNAME: ${data.get('username')} PASSWORD: ${data.get('password')}`)
+    const res = await signIn("credentials", {
+      redirect: false,
+      username: data.get("username"),
+      password: data.get("password"),
+    });
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("username", frm.get("username"));
-    urlencoded.append("password", frm.get("password"));
+    if (!res.ok) {
+      toast({
+        title: "เกิดข้อผิดพลาด",
+        description: res.error,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
+      router.push("/auth")
+    }
 
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: 'follow'
-    };
-
-    const res = await fetch(`${process.env.API_HOST}/user/login`, requestOptions)
-    const data = await res.json()
-    console.log(data)
+    if (res.ok) {
+      toast({
+        title: `สวัสดี ${data.get("username")}`,
+        description: `ยินดีต้อนรับเข้าสู่ระบบ ${process.env.APP_NAME}.`,
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      router.push("/")
+    }
   };
   return (
     <>
