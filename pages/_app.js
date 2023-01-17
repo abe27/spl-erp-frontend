@@ -1,5 +1,17 @@
-import '@/styles/globals.css'
+import "@/styles/globals.css";
+import { Inter } from "@next/font/google";
+import { ChakraProvider } from "@chakra-ui/react";
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+const fonts = Inter({ subsets: ["latin"] });
+
+const App = ({ Component, pageProps }) => {
+  return (
+    <section className={fonts.className}>
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </section>
+  );
+};
+
+export default App;
